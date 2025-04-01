@@ -1,0 +1,26 @@
+<%- include('layout/header') %>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Edit User(<%= user.name %)</h2>
+    <div class="edit-user-container">
+        <form action="/update/<%- user._id %" method="post" id="add-form" enctype="multipart/form-data" class="custom-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" class="form-control custom-input" id="name"
+                value="<%-user.name %>" placeholder="Enter email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Email</label>
+                <input type="tel" name="phone" class="form-control custom-input" id="phone"
+                value="<%-user.phone %>" placeholder="Enter phone" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Select Image</label>
+                <input type="file" name="image" class="form-control custom-input" id="image"
+                value="<%-user.image %>" width="100" class="img-thumbnail">
+            </div>
+            <input type="hidden" name="old_image" value="<%- user.image %" class="btn">
+            <button type="submit" class="btn btn-success btn"></button>
+        </form>
+
+    </div>
+</div>

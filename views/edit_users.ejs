@@ -1,26 +1,101 @@
-<%- include('layout/header') %>
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Edit User(<%= user.name %)</h2>
-    <div class="edit-user-container">
-        <form action="/update/<%- user._id %" method="post" id="add-form" enctype="multipart/form-data" class="custom-form">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" name="name" class="form-control custom-input" id="name"
-                value="<%-user.name %>" placeholder="Enter email" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Email</label>
-                <input type="tel" name="phone" class="form-control custom-input" id="phone"
-                value="<%-user.phone %>" placeholder="Enter phone" required>
-            </div>
-            <div class="form-group">
-                <label for="image">Select Image</label>
-                <input type="file" name="image" class="form-control custom-input" id="image"
-                value="<%-user.image %>" width="100" class="img-thumbnail">
-            </div>
-            <input type="hidden" name="old_image" value="<%- user.image %" class="btn">
-            <button type="submit" class="btn btn-success btn"></button>
-        </form>
+<%- include('layouts/header') %>
 
-    </div>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Edit User (<%= user.name %>)</h2>
+    
+    <form action="/update/<%= user._id %>" method="post" id="add-form" enctype="multipart/form-data" class="custom-form">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" class="form-control custom-input" id="name"
+                   value="<%= user.name %>" placeholder="Enter name" required 
+                   pattern="[A-Za-z\s]+" title="Please enter a valid name (letters only)">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" class="form-control custom-input" id="email"
+                   value="<%= user.email %>" placeholder="Enter email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">+91</span>
+                </div>
+                <input type="tel" name="phone" class="form-control custom-input" id="phone"
+                       value="<%= user.phone %>" placeholder="Enter phone" required 
+                       pattern="[6-9][0-9]{9}" title="Please enter a 10-digit phone number starting with 6,7,8 or 9">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Select Image</label>
+            <input type="file" name="image" class="form-control-file custom-file-input" id="image">
+            
+            <% if (user.image) { %>
+                <div class="mt-3">
+                    <p class="text-muted mb-2">Current Image:</p>
+                    <img src="/<%= user.image %>" width="120" class="img-thumbnail rounded" />
+                </div>
+            <% } %>
+        </div>
+        
+        <input type="hidden" name="old_image" value="<%= user.image %>">
+        
+        <div class="form-group mt-4">
+            <button type="submit" class="btn btn-primary custom-button mr-2">Update User</button>
+            <a href="/" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
 </div>
+
+<%- include('layouts/footer') %>
+
+<style>
+    .custom-form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .custom-input {
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+        padding: 10px 15px;
+        transition: border-color 0.3s;
+    }
+    
+    .custom-input:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    
+    .custom-file-input {
+        padding: 10px 0;
+    }
+    
+    .custom-button {
+        padding: 10px 25px;
+        border-radius: 4px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .input-group-text {
+        background-color: #f8f9fa;
+    }
+    
+    .img-thumbnail {
+        border: 1px solid #dee2e6;
+        padding: 2px;
+    }
+</style>
